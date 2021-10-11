@@ -10,7 +10,7 @@ from requests.api import request
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import authentication, permissions, serializers ,viewsets
-
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from .models import Comment, User , Project , List , Cards
 from django.http import JsonResponse
 from .serializers import UserSerializer , ProjectSerializer ,ListSerializer , CardsSerializer , ListProjectSerializer , CommentSerializer
@@ -24,12 +24,12 @@ from .permissions import Is_Admin , Is_Proj_Access , Is_list_Access , Is_Card_Ac
 import requests
 from django.contrib.auth import authenticate, login
 from rest_framework.permissions import IsAuthenticated
-
+from django.middleware.csrf import get_token
 # Create your views here.
 
 CLIENT_ID= "elJICPsYXpNkImpEJoKAQtZarxge582BWEDCaIyE"
 CLIENT_SECRET_ID= "HFosGRMQFPUWARaueF487yCnXvhAWvkjisJ91CY63zFEckPGqLtHFa7Oayvsokh7CR6OrLVKramMgRIRHkq9XYI3p9I2wr3lqVkOUjLV885eLWhwYkkJ2kWI9gXzMTgh"
-REDIRECT_URI="http://127.0.0.1:8000/api1/Synergy/"
+REDIRECT_URI="http://localhost:3000"
 TOKEN_URL = "https://channeli.in/open_auth/token/"
 CLIENT_URL = "https://channeli.in/oauth/authorise"
 GET_URL="https://channeli.in/open_auth/get_user_data/"
@@ -76,8 +76,12 @@ def LoginResponse(request):
             
             
             login(request, get_user)
-            
-            return redirect("http://127.0.0.1:8000/api1/project/")
+            response = Response({"csrftoken": get_token(request), "sessionid": request.session._session_key}, status=status.HTTP_200_OK)
+            response['Access-Control-Allow-Origin'] = 'http://localhost:3000'
+            response['Access-Control-Allow-Credentials'] = 'true'
+            return response
+            # return JsonResponse()
+            # return redirect("http://127.0.0.1:8000/api1/project/")
           # return JsonResponse(user_json)
         else:  
             raise Http404("Not a maintainer")
@@ -100,6 +104,7 @@ def LoginResponse(request):
 #         #print(request.data)
 #         return HttpResponse({'msg':'this is get','data':request.data})  
 class ProjectViewset(viewsets.ModelViewSet):
+    authentication_classes = [SessionAuthentication]
     serializer_class= ProjectSerializer
     # queryset=Project.objects.all()
     # @action(methods=['GET'], detail = False, url_path='lists',url_name='projects-lists')
@@ -129,6 +134,7 @@ class ProjectViewset(viewsets.ModelViewSet):
 
 class CardsViewset(viewsets.ModelViewSet):
     serializer_class=CardsSerializer
+    authentication_classes = [SessionAuthentication] 
     def get_queryset(self):
         Cards_data=Cards.objects.all()
         
@@ -136,6 +142,7 @@ class CardsViewset(viewsets.ModelViewSet):
 
 class CommentViewset(viewsets.ModelViewSet):
     serializer_class=CommentSerializer
+    authentication_classes = [SessionAuthentication] 
     def get_queryset(self):
         Comment_data=Comment.objects.all()
         
@@ -144,22 +151,25 @@ class CommentViewset(viewsets.ModelViewSet):
 
 class ListOfProjects(viewsets.ModelViewSet):
     serializer_class=ProjectSerializer
-
+    authentication_classes = [SessionAuthentication]
     permission_classes=[Is_Proj_Access,IsAuthenticated]
     queryset = Project.objects.all()
 
 class CardsOfList(viewsets.ModelViewSet):
     permission_classes=[Is_list_Access,IsAuthenticated]
+    authentication_classes = [SessionAuthentication] 
     serializer_class=ListSerializer
     queryset = List.objects.all()  
 
 class CommentOfCards(viewsets.ModelViewSet):
     permission_classes=[Is_Card_Access , IsAuthenticated]
+    authentication_classes = [SessionAuthentication]
     serializer_class=CardsSerializer
     queryset = Cards.objects.all()   
 
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class=UserSerializer
+    authentication_classes = [SessionAuthentication]
     permission_classes= [Is_Admin,IsAuthenticated]
     def get_queryset(self):
         User_data=User.objects.all()
