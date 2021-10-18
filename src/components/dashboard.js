@@ -1,3 +1,57 @@
+// import React, { useState } from "react";
+// import "./dashboard.css";
+// import {
+//   FaFacebookSquare,
+//   FaInstagramSquare,
+//   FaYoutubeSquare,
+// } from "react-icons/fa";
+// import { GiHamburgerMenu } from "react-icons/gi";
+// import cookie from 'react-cookies'
+// import { NavLink } from "react-router-dom";
+// import Navbar from "./Navbar";
+// import { AllProjects } from "./allprojects";
+// import { Box } from "@mui/system";
+// import axios from "axios";
+// import { useEffect } from "react";
+
+
+// export function Dashboard(){
+//   const get_userid=cookie.load('UserId')
+//   const TokenId=cookie.load('TokenId')
+//   const [userdata,setuserdata]=useState([])
+//   async function AllProjectData(){
+//     axios.get(`http://127.0.0.1:8000/api1/Users/`,  {headers:{"Content-Type": "application/json", "Authorization": `Token ${TokenId}`}})
+//     .then(response => {
+//         console.log("Console skdfhn")
+//         console.log(response.data)
+//         setuserdata(response.data)
+
+        
+        
+//     })
+//     .catch(err => {
+        
+//         console.log(err);
+//     })
+//     }
+  
+//   useEffect(() => {
+//     AllProjectData()
+    
+//   }, [])
+
+//   return(
+//   <Box>
+//    <Box>WElCOFBHHDUcs</Box> 
+//   <Navbar/>
+//   <Box>Welcome {userdata.map(user=>(user.username))}</Box>
+//   </Box>
+//   );
+//   }
+
+// export default Dashboard;
+
+
 import React, { useState } from "react";
 import "./dashboard.css";
 import {
@@ -6,85 +60,46 @@ import {
   FaYoutubeSquare,
 } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
-
+import cookie from 'react-cookies'
 import { NavLink } from "react-router-dom";
+import Navbar from "./Navbar";
+// import { AllProjects } from "./allprojects";
+import { Box } from "@mui/system";
+import axios from "axios";
+import { useEffect } from "react";
 
-const Navbar = () => {
-  const [showMediaIcons, setShowMediaIcons] = useState(false);
-  return (
-    <>
-      <nav className="main-nav">
-        {/* 1st logo part  */}
-        <div className="logo">
-          <h2>
-            <span>S</span>yner
-            <span>G</span>y
-          </h2>
-        </div>
 
-        {/* 2nd menu part  */}
-        <div
-          className={
-            showMediaIcons ? "menu-link mobile-menu-link" : "menu-link"
-          }>
-          <ul>
-            <li>
-              <NavLink to="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink to="/about">about</NavLink>
-            </li>
-            <li>
-              <NavLink to="/service">services</NavLink>
-            </li>
-            <li>
-              <NavLink to="/contact">contact</NavLink>
-            </li>
-          </ul>
-        </div>
+export function Dashboard(){
+  const get_userid=cookie.load('UserId')
+  const TokenId=cookie.load('TokenId')
+  const [userdata,setuserdata]=useState([])
+  async function AllProjectData(){
+    axios.get(`http://127.0.0.1:8000/api1/Users/${get_userid}/`,  {headers:{"Content-Type": "application/json", "Authorization": `Token ${TokenId}`}})
+    .then(response => {
+        console.log(response.data)
+        setuserdata(response.data)
 
-        {/* 3rd social media links */}
-        <div className="social-media">
-          <ul className="social-media-desktop">
-            <li>
-              <a
-                href="#"
-                target="_thapa">
-                <FaFacebookSquare className="facebook" />
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                target="_thapa">
-                <FaInstagramSquare className="instagram" />
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                target="_thapa">
-                <FaYoutubeSquare className="youtube" />
-              </a>
-            </li>
-          </ul>
+        
+        
+    })
+    .catch(err => {
+        
+        console.log(err);
+    })
+    }
+  
+  useEffect(() => {
+    AllProjectData()
+    
+  }, [])
 
-          {/* hamburget menu start  */}
-          <div className="hamburger-menu">
-            <a href="#" onClick={() => setShowMediaIcons(!showMediaIcons)}>
-              <GiHamburgerMenu />
-            </a>
-          </div>
-        </div>
-      </nav>
-
-      {/* hero section  */}
-      {/* <section className="hero-section">
-        <p>Welcome to </p>
-        <h1>Thapa Technical</h1>
-      </section> */}
-    </>
+  return(
+  <Box>
+  <Navbar/>
+  
+  <Box>Welcome {userdata.fullname}</Box>
+  </Box>
   );
-};
+  }
 
-export default Navbar;
+export default Dashboard;

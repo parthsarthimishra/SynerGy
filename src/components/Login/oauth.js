@@ -14,11 +14,14 @@ class OAuth extends React.Component{
         const params = new URLSearchParams(window.location.search);
         const auth = params.get("code");
 
-        axios.get('http://127.0.0.1:8000/api1/token/?code='+auth+'&state=state', {withCredentials: true})
+        axios.get('http://127.0.0.1:8000/api1/Synergy/?code='+auth+'&state=state')
         .then(response => {
             console.log(response)
+            console.log("for deBUGGING")
             cookie.save('csrftoken', response.data['csrftoken'], {path:"/"})
             cookie.save('sessionid', response.data['sessionid'], {path:"/"})
+            cookie.save('TokenId',response.data['myToken'],{path:"/"})
+            cookie.save('UserId',response.data['UserId'],{path:"/"})
             this.setState({isLoggedIn : true})
             
         })

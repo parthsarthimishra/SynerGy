@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./navbar.css";
+import "./dashboard.css";
 import {
   FaFacebookSquare,
   FaInstagramSquare,
@@ -17,8 +17,8 @@ const Navbar = () => {
         {/* 1st logo part  */}
         <div className="logo">
           <h2>
-            <span>T</span>hapa
-            <span>T</span>echnical
+            <span>S</span>yner
+            <span>G</span>y
           </h2>
         </div>
 
@@ -29,16 +29,16 @@ const Navbar = () => {
           }>
           <ul>
             <li>
-              <NavLink to="/">Home</NavLink>
+              <NavLink to="/ProjectPage">Projects</NavLink>
             </li>
             <li>
-              <NavLink to="/about">about</NavLink>
+              <NavLink to="/myprojects">MyProjects</NavLink>
             </li>
             <li>
-              <NavLink to="/service">services</NavLink>
+              <NavLink to="/mycards">MyTasks</NavLink>
             </li>
             <li>
-              <NavLink to="/contact">contact</NavLink>
+              <NavLink to="/members">Members</NavLink>
             </li>
           </ul>
         </div>
@@ -48,21 +48,21 @@ const Navbar = () => {
           <ul className="social-media-desktop">
             <li>
               <a
-                href="https://www.youtube.com/channel/UCwfaAHy4zQUb2APNOGXUCCA"
+                href="#"
                 target="_thapa">
                 <FaFacebookSquare className="facebook" />
               </a>
             </li>
             <li>
               <a
-                href="https://www.instagram.com/thapatechnical/"
+                href="#"
                 target="_thapa">
                 <FaInstagramSquare className="instagram" />
               </a>
             </li>
             <li>
               <a
-                href="https://www.youtube.com/channel/UCwfaAHy4zQUb2APNOGXUCCA"
+                href="#"
                 target="_thapa">
                 <FaYoutubeSquare className="youtube" />
               </a>
