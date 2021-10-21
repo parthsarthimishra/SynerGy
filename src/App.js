@@ -1,43 +1,4 @@
 
-
-
-
-// import './App.css';
-// import React, { useEffect, useState } from 'react'
-// function App() {
-//  const [name,setName]=useState("");
-//  const [email,setEmail]=useState("");
-//  const [mobile,setMobile]=useState("");
-// function saveData()
-// {
-//   let data={name}
-// // console.warn(data);
-//   fetch("http://127.0.0.1:8000/api1/project/", {
-//     method: "POST",
-//     headers: {
-//       'Accept': 'application/json',
-//       'Content-Type': 'application/json',
-//     },
-//     body:JSON.stringify(data)
-//   }).then((resp)=>{
-//     // console.warn("resp",resp);;
-//     resp.json().then((result)=>{
-//       console.warn("result",result)
-//     })
-//   })
-// }
-//   return (
-//     <div className="App">
-//       <h1>POST API Example </h1>  
-//       <input type="text" name="name" value={name} onChange={(e)=>{setName(e.target.value)}}  /> <br /> <br />
-//       {/* <input type="text" name="email"  value={email} onChange={(e)=>{setEmail(e.target.value)}} /> <br /> <br />
-//       <input type="text" name="mobile"  value={mobile} onChange={(e)=>{setMobile(e.target.value)}}/> <br /> <br /> */}
-//       <button type="button" onClick={saveData} >Save New User</button>
-//     </div>
-//   );
-// }
-// export default App;
-
 import './App.css';
 import {React} from 'react';
 import Login from './components/Login/login';
@@ -73,7 +34,7 @@ function App() {
         {/* <Route exact path='/sidebar' component={Sidebar}/> */}
         <Route exact path='/projects/:p_id' component={ComplexGrid}/>
         <Route exact path='/updateprojects/:p_id' component={UpdateProject}/>
-        <Route exact path='/updatecards/' component={UpdateCard}/>
+        <Route exact path='/updatecard/:c_id' component={UpdateCard}/>
         <Route exact path='/project/:p_id/updatelist/:l_id/' component={UpdateList}/>
         <Route exact path='/createlist/:p_id' component={CreateList}/>
         <Route exact path='/createcard/:l_id' component={CreateCard}/>
