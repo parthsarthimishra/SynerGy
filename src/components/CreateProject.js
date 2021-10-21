@@ -4,8 +4,8 @@ import axios from 'axios';
 import cookie from 'react-cookies'
 // import { makeStyles } from "@material-ui/core/styles";
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
-// import { CKEditor } from '@ckeditor/ckeditor5-react';
-// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Box } from '@mui/system';
 // import SideBar from './sidebar';
 // import Title from './title';
@@ -25,7 +25,7 @@ export function CreateProject() {
     const [nameErr, setNameErr] = React.useState(false)
     const [err, setErr] = React.useState(false)
     const history = useHistory();
-
+    
 
 
 
@@ -81,7 +81,8 @@ export function CreateProject() {
             const data = {
                 "name":name,
                 // "description" : describe,
-                "members" : members
+                "members" : members,
+                "description": describe,
     
             }
             axios.post('http://127.0.0.1:8000/api1/projectsAll/',data,  {headers:{"Content-Type": "application/json", "Authorization": `Token ${TokenId}`}})
@@ -128,12 +129,12 @@ export function CreateProject() {
 
                             
                         />
-{/*                         
+                        
                         <Box sx={{ fontWeight: 'bold'}} mt={2} mb ={1} >
                             Description :
-                        </Box> */}
-                        {/* <CKEditor
-                        // editor={ ClassicEditor }
+                        </Box>
+                        <CKEditor
+                        editor={ ClassicEditor }
                         onReady={(editor) => {
                             // You can store the "editor" and use when it is needed.
                             console.log('Editor is ready to use!', editor);
@@ -144,7 +145,7 @@ export function CreateProject() {
                             setDescribe(data);
                             
                         }}
-                        /> */}
+                        />
                         <Box sx={{ fontWeight: 'bold'}} mt={2} mb={1} >
                             Project members :
                         </Box>

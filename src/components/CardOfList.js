@@ -12,9 +12,7 @@ import * as React from 'react';
 import { useHistory, useParams } from 'react-router';
 import cookie from 'react-cookies';
 import { Box, grid } from '@mui/system';
-// import { Button, Card, CardActions, CardContent, CardHeader, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core';
-// import SideBar from './sidebar';
-// import Title from './title';
+
 import { Link } from 'react-router-dom';
 // import { CardOfList } from './CardOfList';
 

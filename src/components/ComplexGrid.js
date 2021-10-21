@@ -44,9 +44,38 @@ const Img = styled('img')({
 export  function ComplexGrid() {
   const history = useHistory()
   const {p_id}= useParams()
+
+
+
   const get_userid=cookie.load('UserId')
   const TokenId=cookie.load('TokenId')
   const [userdata,setuserdata]=useState([])
+  
+  //Handle delte 
+  const HandleConfirmDelete = (event) => {
+    event.preventDefault()
+    console.log("delete")
+
+
+    axios.delete(`http://127.0.0.1:8000/api1/project/${p_id}/`,  {headers:{"Content-Type": "application/json", "Authorization": `Token ${TokenId}`}})
+    .then(response => {
+        console.log(response.data)
+        console.log("deleted")
+        // setDeleteOpen(false)
+        history.push(`/ProjectPage/`)
+
+
+    })
+    .catch(err => {
+        
+        console.log(err);
+        // setErrDelete(true)
+    })
+
+};
+
+//
+
   async function AllProjectData(){
     axios.get(`http://127.0.0.1:8000/api1/project/${p_id}/`,  {headers:{"Content-Type": "application/json", "Authorization": `Token ${TokenId}`}})
     .then(response => {
@@ -71,13 +100,17 @@ export  function ComplexGrid() {
     
     <Box>
    
-    <Navbar/>
+   
     <SideProjects/>
-    
+    <Navbar/>
       <Box  textAlign='right' marginRight="90px" marginTop="30px" >
       <Button onClick={()=>history.push(`/createlist/${p_id}`)} key={p_id} Width="5px" alignItems="center" justifyContent="center" variant="contained" >
   Create List 
 </Button>
+<Button onClick={HandleConfirmDelete}  Width="5px" alignItems="center" justifyContent="center" variant="contained" >
+ Delete Project
+</Button>
+
       {/* <ListItem button onClick={()=>history.push(`/createlist/${p_id}`)} key={p_id} Width="5px" alignItems="center" justifyContent="center">
       Create List
       </ListItem> */}

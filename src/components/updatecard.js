@@ -80,7 +80,7 @@ export function UpdateCard() {
                 "task":name,
                 // "description" : describe,
                 "list" : l_id,
-                "user" : members
+                "user" : members,
     
             }
             axios.patch('http://127.0.0.1:8000/api1/card/',data,  {headers:{"Content-Type": "application/json", "Authorization": `Token ${TokenId}`}})

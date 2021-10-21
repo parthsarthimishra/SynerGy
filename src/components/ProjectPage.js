@@ -43,18 +43,14 @@ export function ProjectPage(){
   }, [])
 
   return(
-  <Box>
+  <Box backgroundColor="#3ef0b2">
   
   
-  {/* <li>All Projects</li> */}
+ 
 
-  {/* <li>
-      
-  <Box>{userdata.map(project=>(<Link onClick={() => window.location.reload()} style={{ textDecoration: 'none' }} to={`/projects/${project.id}`}><Typography ><li>{project.name}</li></Typography></Link>))}   </Box>
-    </li>
-     */}
-
-<Box>
+<Box sx={{
+         backgroundColor:"#3ef0b2",
+        }}>
 
     
     {/* {userdata.map(list=>(<ComplexGridCard listData={list}/>))} */}

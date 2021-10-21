@@ -25,34 +25,45 @@ export  function ComplexGridCard(props) {
   const history=useHistory()
     const list=props.listData
     const projectId=props.ProjectId
+    console.log("THIS IS P_ID")
+    console.log(projectId)
+    const TokenId=cookie.load('TokenId')
+    //delete handle
+    const HandleConfirmDelete = (event) => {
+      event.preventDefault()
+      console.log("delete")
+  
+  
+      axios.delete(`http://127.0.0.1:8000/api1/list/${list.id}/`,  {headers:{"Content-Type": "application/json", "Authorization": `Token ${TokenId}`}})
+      .then(response => {
+          console.log(response.data)
+          console.log("deleted")
+          // setDeleteOpen(false)
+          history.push(`/projects/${projectId}`)
+  
+  
+      })
+      .catch(err => {
+          
+          console.log(err);
+          // setErrDelete(true)
+      })
+  
+  };
     return(
        
-<Paper sx={{ p: 2, margin: 'auto', marginTop: '40px',maxWidth: 500, flexGrow: 1 }}>
+<Paper sx={{ p: 2, margin: 'auto', marginTop: '40px',maxWidth: 500, flexGrow: 1 , backgroundColor:"#41ebb0"}}>
 
-      <Grid container spacing={2}>
-        {/* <Grid item>
-          <ButtonBase sx={{ width: 128, height: 128 }}>
-            {/* <Img alt="complex" src="/static/images/grid/complex.jpg" /> */}
-          {/* </ButtonBase> */}
-        {/* </Grid> */} 
+      <Grid container spacing={2} >
+   
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={2}>
-            <Grid item xs  height="15px" textAlign="center">
+            <Grid item xs  height="15px" textAlign="center" >
               <Typography gutterBottom variant="subtitle1" component="div"  fontSize="15px" >
                   {list.name}
                 {/* {userdata.map(list=>(<Link style={{ textDecoration: 'none' }} to={`/projects/${list.id}`}><Typography ><li>{list.id}</li></Typography></Link>))} */}
               </Typography>
-              {/* <Typography variant="body2" gutterBottom>
-                Full resolution 1920x1080 • JPEG
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                ID: 1030114
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography sx={{ cursor: 'pointer' }} variant="body2">
-                Remove
-              </Typography> */}
+            
             </Grid>
           </Grid>
           <Grid item>
@@ -65,6 +76,9 @@ export  function ComplexGridCard(props) {
       <ListItem button onClick={()=>history.push(`/project/${projectId}/updatelist/${list.id}/`)} key={list.id}>
       Update list
       </ListItem>
+      <ListItem button onClick={HandleConfirmDelete} >
+        Delete List
+        </ListItem>
       <Button  onClick={()=>history.push(`/createcard/${list.id}`)} key={list.id}>
       <ControlPointIcon/>
       </Button>

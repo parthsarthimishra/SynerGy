@@ -87,7 +87,7 @@ export function CreateList() {
             axios.post('http://127.0.0.1:8000/api1/list/',data,  {headers:{"Content-Type": "application/json", "Authorization": `Token ${TokenId}`}})
         .then(response => {
             console.log("nacho bc")
-            history.push(`/projects/{p_id}/`) 
+            history.push(`/projects/${p_id}/`) 
 
         })
         .catch(err => {
